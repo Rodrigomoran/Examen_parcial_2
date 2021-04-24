@@ -1,0 +1,119 @@
+class Nodo:
+    def __init__(self, nombre=None, edad=None, izq=None, der=None):
+        self.nombre = nombre
+        self.edad = edad
+        self.izq  = izq
+        self.der  = der
+
+    def __str__(self):
+        return "%s %s" %(self.nombre, self.edad)
+
+
+class arbolb:
+    def __init__(self):
+        self.raiz = None
+
+    def agregar(self, elemento):
+        if self.raiz  == None:
+            self.raiz = elemento
+        else:
+            aux = self.raiz
+            padre = None
+            while aux != None:
+                padre = aux
+                if int(elemento.edad) >= int(aux.edad):
+                    aux = aux.der
+                else:
+                    aux = aux.izq
+            if int(elemento.edad) >= int(padre.edad):
+                padre.der = elemento
+            else:
+                padre.izq = elemento
+
+    def pre(self, elemento):
+        if elemento != None:
+            print(elemento.str())
+            self.pre(elemento.izq)
+            self.pre(elemento.der)
+
+    def post(self, elemento):
+        if elemento != None:
+            self.post(elemento.izq)
+            self.post(elemento.der)
+            print(elemento.str())
+
+    def ino(self, elemento):
+        if elemento != None:
+            self.ino(elemento.izq)
+            print(elemento.str())
+            self.ino(elemento.der)
+
+    def getRaiz(self):
+        return self.raiz
+
+
+if __name__ == "__main__":
+    ab = arbolb()
+    while(True):
+        print("---Menu---\n" + "1. Agregar"+ "\n" + "2. Preorden\n" + "3. Postorden\n" + "4. Inorden\n")
+        num = input("Ingrese la opcion: ")
+        if num == "1":
+            nombre = input("Ingrese su nombre: ")
+            edad = input("Ingrese su edad: ")
+            nod = Nodo(nombre, edad)
+            ab.agregar(nod)
+        elif num == "2":
+            print("Imprimiendo por preorden")
+            ab.pre(ab.getRaiz())
+        elif num == "3":
+            print("Imprimiendo por postorden")
+            ab.post(ab.getRaiz())
+        elif num == "4":
+            print("Imprimiendo por inorden")
+            ab.ino(ab.getRaiz())
+arbol = Arbol("Rodrigo")
+arbol.agregar("María")
+arbol.agregar("Jorge")
+arbol.agregar("LMario")
+arbol.agregar("Emmanuel")
+arbol.agregar("Alejandro")
+arbol.agregar("Daniel")
+nombre = input("Ingresa algo para agregar al árbol: ")
+arbol.agregar(nombre)
+arbol.preorden()
+arbol.inorden()
+arbol.postorden()
+
+busqueda = input("Busca algo en el árbol: ")
+nodo = arbol.buscar(busqueda)
+if nodo is None:
+    print(f"{busqueda} no existe")
+else:
+    print(f"{busqueda} sí existe")
+
+arbol_numeros = Arbol(4)
+arbol_numeros.agregar(198)
+arbol_numeros.agregar(55)
+arbol_numeros.agregar(77)
+arbol_numeros.agregar(44)
+arbol_numeros.agregar(12)
+arbol_numeros.agregar(88)
+arbol_numeros.agregar(59)
+arbol_numeros.agregar(60)
+arbol_numeros.agregar(49)
+arbol_numeros.agregar(95)
+arbol_numeros.agregar(35)
+arbol_numeros.agregar(65)
+arbol_numeros.agregar(1)
+arbol_numeros.agregar(213)
+arbol_numeros.preorden()
+arbol_numeros.inorden()
+arbol_numeros.postorden()
+
+busqueda = int(input("Ingresa un número para buscar en el árbol: "))
+n = arbol_numeros.buscar(busqueda)
+if n is None:
+    print(f"{busqueda} no existe")
+else:
+    print(f"{busqueda} sí existe")
+
